@@ -44,6 +44,12 @@ export type CommonEmulatorConfig = {
   port: number
 }
 
+/**
+ * Enables the emulator for the given module
+ *
+ * @param name
+ * @param module
+ */
 export const enableEmulator = ({ name, module }: Emulator) => {
   const flameConfig = useRuntimeConfig().public.flame as NuxtFlameOptionsFull
   const emulatorsConfig = flameConfig.emulators
@@ -71,6 +77,11 @@ export const enableEmulator = ({ name, module }: Emulator) => {
   }
 }
 
+/**
+ * Enables the emulator for the given auth module
+ *
+ * @param auth
+ */
 export const enableAuthEmulator = (auth: Auth) => {
   const flameConfig = useRuntimeConfig().public.flame as NuxtFlameOptions
   const emulatorsConfig = flameConfig.emulators as EmulatorsConfig
@@ -83,6 +94,9 @@ export const enableAuthEmulator = (auth: Auth) => {
   connectAuthEmulator(auth, emulatorConfig.url, emulatorConfig.options)
 }
 
+/**
+ * Enables the admin emulators for all modules
+ */
 export const enableAdminEmulators = () => {
   if (process.client) return
 

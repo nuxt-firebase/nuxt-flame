@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100vw; height: 100vh; display: flex; align-items: center; justify-items: center; justify-content: center;">
+  <div class="wrapper">
     <div>
       <p>{{ currentUser?.name || currentUser?.displayName }}</p>
 
@@ -33,3 +33,22 @@ const signOut = async () => {
   await signOutFirebase(auth)
 }
 </script>
+
+<style scoped>
+.wrapper {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  text-align: center;
+}
+</style>

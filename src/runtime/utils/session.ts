@@ -18,7 +18,7 @@ export const saveSession = async (user: User | null) => {
     }
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error("Can't save session:", err)
+    console.error("[Nuxt Flame] Can’t save session:", err)
   }
 }
 
