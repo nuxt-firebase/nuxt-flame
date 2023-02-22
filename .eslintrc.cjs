@@ -1,6 +1,16 @@
 module.exports = {
   "root": true,
-  "extends": ["@nuxt/eslint-config"],
+
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "ecmaVersion": 2020,
+  },
+
+  "extends": [
+    "@nuxt/eslint-config",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
+  ],
 
   "rules": {
     "quotes": [
@@ -38,6 +48,17 @@ module.exports = {
         "anonymous": "never",
         "named": "never",
       },
-    ]
-  }
+    ],
+    "import/order": "error",
+    "no-trailing-spaces": "error",
+    "no-console": "error",
+    "no-debugger": "error",
+  },
+
+  "settings": {
+    "import/resolver": {
+      "node": true,
+      "typescript": true,
+    },
+  },
 }

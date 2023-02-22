@@ -15,8 +15,8 @@
 </template>
 
 <script setup lang="ts">
-import { useAuth, useCurrentUser } from "#imports"
 import { GoogleAuthProvider, signInWithPopup, signOut as signOutFirebase } from "@firebase/auth"
+import { useAuth, useCurrentUser } from "#imports"
 
 const auth = useAuth()
 const currentUser = useCurrentUser()
@@ -24,13 +24,12 @@ const currentUser = useCurrentUser()
 const signIn = async () => {
   if (!auth) return
 
-  const result = await signInWithPopup(auth, new GoogleAuthProvider())
-  console.log(result)
+  await signInWithPopup(auth, new GoogleAuthProvider())
 }
 
 const signOut = async () => {
   if (!auth) return
 
-  signOutFirebase(auth)
+  await signOutFirebase(auth)
 }
 </script>

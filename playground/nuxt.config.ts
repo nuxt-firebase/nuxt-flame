@@ -24,6 +24,9 @@ export default defineNuxtConfig({
   },
 
   flame: {
+    authApiEndpoint: "/olololo",
+    authCookieName: "hihihihih",
+
     emulators: {
       enabled: true,
 

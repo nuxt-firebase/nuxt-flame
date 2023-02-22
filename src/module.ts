@@ -1,23 +1,63 @@
 import { defineNuxtModule, addPlugin, createResolver, addServerHandler, addImports } from "@nuxt/kit"
 import { AuthEmulatorConfig, CommonEmulatorConfig } from "./runtime/utils/emulators"
 
-// Nuxt Flame options TypeScript interface definition
+/**
+ * Nuxt module options
+ * You can find default values below
+ */
 export interface NuxtFlameOptions {
+  /**
+   * The endpoint to use for the auth API
+   */
+  authApiEndpoint?: string
+
+  /**
+   * The name of the cookie to use for the auth API
+   */
+  authCookieName?: string
+
+  /**
+   * Emulators configuration
+   */
   emulators: {
+    /**
+     * Enable all emulators. This will override all other emulator options.
+     */
     enabled?: boolean
 
+    /**
+     * Auth emulator configuration
+     */
     auth?: Partial<AuthEmulatorConfig>
+
+    /**
+     * Firestore emulator configuration
+     */
     firestore?: Partial<CommonEmulatorConfig>
+
+    /**
+     * Realtime Database emulator configuration
+     */
     database?: Partial<CommonEmulatorConfig>
+
+    /**
+     * Cloud Functions emulator configuration
+     */
     functions?: Partial<CommonEmulatorConfig>
+
+    /**
+     * Cloud Storage emulator configuration
+     */
     storage?: Partial<CommonEmulatorConfig>
   }
 }
 
 export interface NuxtFlameOptionsFull {
+  authApiEndpoint: string
+  authCookieName: string
+
   emulators: {
     enabled: boolean
-
     auth: AuthEmulatorConfig,
     firestore: CommonEmulatorConfig,
     database: CommonEmulatorConfig,
@@ -35,8 +75,13 @@ export default defineNuxtModule<NuxtFlameOptions>({
     },
   },
 
-  // Default configuration options of the Nuxt module
+  /**
+   * Default options
+   */
   defaults: {
+    authApiEndpoint: "/api/__session",
+    authCookieName: "__session",
+
     emulators: {
       enabled: false,
 
@@ -78,16 +123,20 @@ export default defineNuxtModule<NuxtFlameOptions>({
     // Save the options to the Nuxt runtime config
     nuxt.options.runtimeConfig.public.flame = options as NuxtFlameOptionsFull
 
+    // Resolve the module directory
     const resolver = createResolver(import.meta.url)
 
+    // Load client and server plugins
     addPlugin(resolver.resolve("./runtime/plugin.client"))
     addPlugin(resolver.resolve("./runtime/plugin.server"))
 
+    // Add the auth API endpoint
     addServerHandler({
-      route: "/api/__session",
+      route: options.authApiEndpoint,
       handler: resolver.resolve("./runtime/server/api/session.server"),
     })
 
+    // Import the composable functions
     addImports([
       {
         from: resolver.resolve("./runtime/composables/use-auth"),

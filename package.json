@@ -1,7 +1,7 @@
 {
   "name": "nuxt-flame",
   "version": "1.0.0",
-  "description": "🚀 Nuxt Flame is a Nuxt module that provides a Google Firebase integration",
+  "description": "🚀 Nuxt Flame provides a Google Firebase integration",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -36,6 +36,8 @@
     "@nuxt/test-utils": "^3.2.2",
     "changelogen": "^0.4.1",
     "eslint": "^8.34.0",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.27.5",
     "firebase": "^9.17.1",
     "firebase-admin": "^11.5.0",
     "nuxt": "^3.2.2",

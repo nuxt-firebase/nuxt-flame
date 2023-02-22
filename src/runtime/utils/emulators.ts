@@ -3,8 +3,8 @@ import { connectFirestoreEmulator, Firestore } from "@firebase/firestore"
 import { connectDatabaseEmulator, Database } from "@firebase/database"
 import { connectFunctionsEmulator, Functions } from "@firebase/functions"
 import { connectStorageEmulator, FirebaseStorage } from "@firebase/storage"
-import { NuxtFlameOptions } from "../../module"
 import { useRuntimeConfig } from "#app"
+import { NuxtFlameOptions, NuxtFlameOptionsFull } from "../../module"
 
 type EmulatorsConfig = {
   enabled: boolean,
@@ -45,9 +45,9 @@ export type CommonEmulatorConfig = {
 }
 
 export const enableEmulator = ({ name, module }: Emulator) => {
-  const flameConfig = useRuntimeConfig().public.flame as NuxtFlameOptions
-  const emulatorsConfig = flameConfig.emulators as EmulatorsConfig
-  const emulatorConfig = emulatorsConfig[name] as CommonEmulatorConfig
+  const flameConfig = useRuntimeConfig().public.flame as NuxtFlameOptionsFull
+  const emulatorsConfig = flameConfig.emulators
+  const emulatorConfig = emulatorsConfig[name]
 
   if (!emulatorsConfig.enabled && !emulatorConfig?.enabled) {
     return

@@ -1,12 +1,3 @@
-<!--
-Get your module up and running quickly.
-
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: Nuxt Flame
-- Package name: nuxt-flame
-- Description: My new Nuxt module
--->
-
 # Nuxt Flame
 
 [![npm version][npm-version-src]][npm-version-href]

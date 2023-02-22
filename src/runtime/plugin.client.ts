@@ -2,8 +2,8 @@ import { defineNuxtPlugin, useRuntimeConfig } from "#app"
 import { initializeApp } from "firebase/app"
 import { getAuth } from "@firebase/auth"
 import { enableAuthEmulator } from "./utils/emulators"
-import { useCurrentUser } from "#imports"
 import { saveSession } from "./utils/session"
+import { useCurrentUser } from "#imports"
 
 export default defineNuxtPlugin(() => {
   const runtimeConfig = useRuntimeConfig()

@@ -1,11 +1,13 @@
 import { defineNuxtPlugin, useRuntimeConfig, useCookie } from "#app"
-import { initializeApp, getApps, cert } from "firebase-admin/app"
 import { getAuth } from "firebase-admin/auth"
-import { useCurrentUser } from "#imports"
+import { initializeApp, getApps, cert } from "firebase-admin/app"
+import { NuxtFlameOptionsFull } from "../module"
 import { enableAdminEmulators } from "./utils/emulators"
+import { useCurrentUser } from "#imports"
 
 export default defineNuxtPlugin(async () => {
-  const token = useCookie("__session")
+  const flameConfig = useRuntimeConfig().public.flame as NuxtFlameOptionsFull
+  const token = useCookie(flameConfig.authCookieName)
 
   if (!token.value) return
 
@@ -24,6 +26,7 @@ export default defineNuxtPlugin(async () => {
     const currentUser = useCurrentUser()
     currentUser.value = await auth.verifyIdToken(token.value)
   } catch (err) {
-    console.error(err)
+    // eslint-disable-next-line no-console
+    console.error("Can't verify session:", err)
   }
 })
