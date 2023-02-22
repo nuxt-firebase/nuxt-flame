@@ -36,7 +36,7 @@ npm install --save-dev nuxt-flame
 ```js
 export default defineNuxtConfig({
   modules: [
-    'nuxt-flame'
+    "nuxt-flame"
   ]
 })
 ```

@@ -1,6 +1,6 @@
 {
   "name": "nuxt-flame",
-  "version": "1.0.1",
+  "version": "1.0.0-beta.1",
   "description": "🚀 Nuxt Flame provides a Google Firebase integration",
   "license": "MIT",
   "type": "module",
@@ -30,6 +30,7 @@
     "@nuxt/kit": "^3.2.2"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.26.0",
     "@nuxt/eslint-config": "^0.1.1",
     "@nuxt/module-builder": "^0.2.1",
     "@nuxt/schema": "^3.2.2",
