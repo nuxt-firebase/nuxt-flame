@@ -1,8 +1,6 @@
 import { defineNuxtPlugin, useRuntimeConfig, useCookie } from "#app"
-import { getAuth } from "firebase-admin/auth"
 import { NuxtFlameOptionsFull } from "../module"
 import { enableAdminEmulators } from "./utils/emulators"
-import { useFirebaseAdminApp } from "./composables/use-firebase-admin-app.server"
 import { useServerAuth } from "./composables/use-server-auth.server"
 import { useCurrentUser } from "#imports"
 
