@@ -143,6 +143,10 @@ export default defineNuxtModule<NuxtFlameOptions>({
         name: "useAuth",
       },
       {
+        from: resolver.resolve("./runtime/composables/use-server-auth.server"),
+        name: "useServerAuth",
+      },
+      {
         from: resolver.resolve("./runtime/composables/use-firestore"),
         name: "useFirestore",
       },

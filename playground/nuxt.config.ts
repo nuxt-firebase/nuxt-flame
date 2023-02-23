@@ -29,12 +29,6 @@ export default defineNuxtConfig({
 
     emulators: {
       enabled: true,
-
-      firestore: {
-        enabled: true,
-        host: "localhost",
-        port: 8080,
-      },
     },
   },
 })
