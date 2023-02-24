@@ -1,6 +1,8 @@
 import { defineNuxtPlugin, useCookie } from "#app"
+import { useFlameConfig } from "./composables/use-flame-config"
 import { enableAdminEmulators } from "./utils/emulators"
-import { useServerAuth, useCurrentUser, useFlameConfig } from "#imports"
+import { useServerAuth } from "./composables/use-server-auth.server"
+import { useCurrentUser } from "./composables/use-current-user"
 
 /**
  * Plugin to initialize Firebase Admin App and Auth on server side

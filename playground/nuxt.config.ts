@@ -1,5 +1,3 @@
-import * as process from "process"
-
 export default defineNuxtConfig({
   modules: ["../src/module"],
 
@@ -20,15 +18,6 @@ export default defineNuxtConfig({
         appId: process.env.FIREBASE_APP_ID,
         measurementId: process.env.FIREBASE_MEASUREMENT_ID,
       },
-    },
-  },
-
-  flame: {
-    authApiEndpoint: "/olololo",
-    authCookieName: "hihihihih",
-
-    emulators: {
-      enabled: false,
     },
   },
 })

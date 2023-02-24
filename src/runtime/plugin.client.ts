@@ -1,7 +1,8 @@
 import { defineNuxtPlugin } from "#app"
 import { enableAuthEmulator } from "./utils/emulators"
 import { saveSession } from "./utils/session"
-import { useCurrentUser, useAuth } from "#imports"
+import { useAuth } from "./composables/use-auth"
+import { useCurrentUser } from "./composables/use-current-user"
 
 /**
  * Plugin to initialize Firebase App and Auth on client side

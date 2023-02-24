@@ -1,5 +1,5 @@
 import { initializeApp, FirebaseApp } from "firebase/app"
-import { useNuxtApp, useRuntimeConfig } from "#imports"
+import { useNuxtApp, useRuntimeConfig } from "#app"
 
 /**
  * Returns the Firebase App instance (client only)
