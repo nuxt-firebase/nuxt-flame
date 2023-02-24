@@ -1,4 +1,4 @@
-# Nuxt Flame
+# 🔥 Nuxt Flame
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
@@ -22,7 +22,6 @@ Easily integrate Google Firebase into your Nuxt 3 application.
 ## Installation
 
 1. Add `nuxt-flame` dependency to your project
-
 ```bash
 # Using pnpm
 pnpm add -D nuxt-flame firebase firebase-admin
@@ -35,7 +34,6 @@ npm install --save-dev nuxt-flame firebase firebase-admin
 ```
 
 2. Add `nuxt-flame` to the `modules` section of `nuxt.config.ts` and specify Firebase credentials in `runtimeConfig`
-
 ```js
 export default defineNuxtConfig({
   modules: [
@@ -64,8 +62,31 @@ export default defineNuxtConfig({
 })
 ```
 
-3. _(Optional)_ Feel free to configure Nuxt Flame in `nuxt.config.ts`
+3. Create `.env` file and put your credentials there
+```js
+// Web credentials from code snippet provided by Google Firebase
+FIREBASE_API_KEY=********
+FIREBASE_AUTH_DOMAIN=********
+FIREBASE_PROJECT_ID=********
+FIREBASE_STORAGE_BUCKET=********
+FIREBASE_MESSAGING_SENDER_ID=********
+FIREBASE_APP_ID=********
+FIREBASE_MEASUREMENT_ID=********
 
+// Admin credentials from service account key
+FIREBASE_CLIENT_EMAIL=********
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----
+****************************************************
+****************************************************
+****************************************************
+****************************************************
+****************************************************
+****************************************************
+**************************
+-----END PRIVATE KEY-----"
+```
+
+4. _(Optional)_ Feel free to configure Nuxt Flame in `nuxt.config.ts`
 ```js
 export default defineNuxtConfig({
   // ...
@@ -174,6 +195,14 @@ const storage = useStorage()
 
 TBD
 
+## Roadmap
+
+- [ ] Write tests
+- [ ] Create helpers for Firestore
+- [ ] Create helpers for Functions
+- [ ] Create helpers for Storage
+- [ ] Create helpers for Realtime Database
+
 ## Development
 
 ```bash
@@ -200,7 +229,6 @@ pnpm run test:watch
 pnpm run release
 ```
 
-<!-- Badges -->
 [npm-version-src]: https://img.shields.io/npm/v/nuxt-flame/latest.svg?style=flat&colorA=18181B&colorB=28CF8D
 [npm-version-href]: https://npmjs.com/package/nuxt-flame
 

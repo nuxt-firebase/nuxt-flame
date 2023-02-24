@@ -3,16 +3,26 @@ import { AuthEmulatorConfig, CommonEmulatorConfig } from "./runtime/utils/emulat
 
 /**
  * Nuxt module options
- * You can find default values below
  */
 export interface NuxtFlameOptions {
   /**
+   * The name of the key to use to save auth state
+   * @default "nuxtFlameCurrentUser"
+   * @example "currentUser"
+   */
+  authStateKey?: string
+
+  /**
    * The endpoint to use for the auth API
+   * @default "/api/__session"
+   * @example "/api/auth"
    */
   authApiEndpoint?: string
 
   /**
    * The name of the cookie to use for the auth API
+   * @default "__session"
+   * @example "auth"
    */
   authCookieName?: string
 
@@ -22,6 +32,7 @@ export interface NuxtFlameOptions {
   emulators: {
     /**
      * Enable all emulators. This will override all other emulator options.
+     * @default false
      */
     enabled?: boolean
 
@@ -53,6 +64,7 @@ export interface NuxtFlameOptions {
 }
 
 export interface NuxtFlameOptionsFull {
+  authStateKey: string
   authApiEndpoint: string
   authCookieName: string
 
@@ -79,6 +91,7 @@ export default defineNuxtModule<NuxtFlameOptions>({
    * Default options
    */
   defaults: {
+    authStateKey: "nuxtFlameCurrentUser",
     authApiEndpoint: "/api/__session",
     authCookieName: "__session",
 
@@ -139,12 +152,28 @@ export default defineNuxtModule<NuxtFlameOptions>({
     // Import the composable functions
     addImports([
       {
+        from: resolver.resolve("./runtime/composables/use-flame-config"),
+        name: "useFlameConfig",
+      },
+      {
+        from: resolver.resolve("./runtime/composables/use-firebase-app.client"),
+        name: "useFirebaseApp",
+      },
+      {
+        from: resolver.resolve("./runtime/composables/use-firebase-admin-app.server"),
+        name: "useFirebaseAdminApp",
+      },
+      {
         from: resolver.resolve("./runtime/composables/use-auth"),
         name: "useAuth",
       },
       {
         from: resolver.resolve("./runtime/composables/use-server-auth.server"),
         name: "useServerAuth",
+      },
+      {
+        from: resolver.resolve("./runtime/composables/use-current-user"),
+        name: "useCurrentUser",
       },
       {
         from: resolver.resolve("./runtime/composables/use-firestore"),
@@ -161,10 +190,6 @@ export default defineNuxtModule<NuxtFlameOptions>({
       {
         from: resolver.resolve("./runtime/composables/use-storage"),
         name: "useStorage",
-      },
-      {
-        from: resolver.resolve("./runtime/composables/use-current-user"),
-        name: "useCurrentUser",
       },
     ])
   },

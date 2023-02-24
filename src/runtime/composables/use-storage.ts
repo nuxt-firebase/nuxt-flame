@@ -1,6 +1,6 @@
-import { useNuxtApp } from "#app"
 import { getStorage } from "@firebase/storage"
 import { enableEmulator } from "../utils/emulators"
+import { useFirebaseApp } from "./use-firebase-app.client"
 
 /**
  * Returns the Firebase Cloud Storage instance
@@ -8,9 +8,9 @@ import { enableEmulator } from "../utils/emulators"
  * @returns {Storage} Firebase Cloud Storage instance
  */
 export const useStorage = () => {
-  const firebaseApp = useNuxtApp().$firebaseApp
+  const app = useFirebaseApp()!
+  const storage = getStorage(app)
 
-  const storage = getStorage(firebaseApp)
   enableEmulator({ name: "storage", module: storage })
 
   return storage

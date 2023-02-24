@@ -1,5 +1,5 @@
-import { useNuxtApp } from "#app"
-import { Auth } from "@firebase/auth"
+import { getAuth, Auth } from "@firebase/auth"
+import { useFirebaseApp } from "./use-firebase-app.client"
 
 /**
  * Returns the Firebase Auth instance (client only)
@@ -9,5 +9,7 @@ import { Auth } from "@firebase/auth"
 export const useAuth = (): Auth | null => {
   if (!process.client) return null
 
-  return useNuxtApp().$firebaseAuth
+  const app = useFirebaseApp()!
+
+  return getAuth(app)
 }

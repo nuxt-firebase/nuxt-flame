@@ -1,6 +1,5 @@
 import { User } from "@firebase/auth"
-import { NuxtFlameOptionsFull } from "../../module"
-import { useRuntimeConfig } from "#imports"
+import { useFlameConfig } from "../composables/use-flame-config"
 
 /**
  * Save the session using the auth API endpoint
@@ -29,9 +28,9 @@ export const saveSession = async (user: User | null) => {
  * @param token
  */
 const saveSessionRequest = async (token: string | null) => {
-  const flameConfig = useRuntimeConfig().public.flame as NuxtFlameOptionsFull
+  const { authApiEndpoint } = useFlameConfig()
 
-  await fetch(flameConfig.authApiEndpoint, {
+  await fetch(authApiEndpoint, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ token }),

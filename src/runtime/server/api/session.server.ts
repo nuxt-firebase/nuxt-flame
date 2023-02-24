@@ -1,6 +1,5 @@
 import { assertMethod, readBody, setCookie, deleteCookie, defineEventHandler } from "h3"
-import { NuxtFlameOptionsFull } from "../../../module"
-import { useRuntimeConfig } from "#imports"
+import { useFlameConfig } from "../../composables/use-flame-config"
 
 /**
  * Setups an API endpoint to save the session cookie
@@ -9,10 +8,10 @@ export default defineEventHandler(async (event) => {
   assertMethod(event, "POST")
 
   const { token } = await readBody(event)
-  const flameConfig = useRuntimeConfig().public.flame as NuxtFlameOptionsFull
+  const { authCookieName } = useFlameConfig()
 
   if (token && token.length > 0) {
-    setCookie(event, flameConfig.authCookieName, token, {
+    setCookie(event, authCookieName, token, {
       maxAge: 60 * 60 * 24 * 5 * 1_000,
       secure: true,
       httpOnly: true,
@@ -20,7 +19,7 @@ export default defineEventHandler(async (event) => {
       sameSite: "lax",
     })
   } else {
-    deleteCookie(event, flameConfig.authCookieName, {
+    deleteCookie(event, authCookieName, {
       maxAge: -1,
     })
   }

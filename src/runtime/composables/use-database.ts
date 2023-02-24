@@ -1,6 +1,6 @@
-import { useNuxtApp } from "#app"
 import { getDatabase } from "@firebase/database"
 import { enableEmulator } from "../utils/emulators"
+import { useFirebaseApp } from "./use-firebase-app.client"
 
 /**
  * Returns the Realtime Database instance
@@ -8,9 +8,9 @@ import { enableEmulator } from "../utils/emulators"
  * @returns {Database} Realtime Database instance
  */
 export const useDatabase = () => {
-  const firebaseApp = useNuxtApp().$firebaseApp
+  const app = useFirebaseApp()!
+  const database = getDatabase(app)
 
-  const database = getDatabase(firebaseApp)
   enableEmulator({ name: "database", module: database })
 
   return database

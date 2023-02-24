@@ -1,13 +1,14 @@
 import { useState } from "#app"
+import { useFlameConfig } from "./use-flame-config"
 
 /**
  * Returns the current user.
  * Notice: Server and Client have different types
  *
- * TODO: Add types for server and client
- *
+ * TODO: Add return types
+ * @param {any} initialValue
  * @returns {User|DecodedIdToken|undefined} The current user
  */
-export const useCurrentUser = () => {
-  return useState("firebaseCurrentUser")
+export const useCurrentUser = (initialValue: any = undefined) => {
+  return useState(useFlameConfig().authStateKey, () => initialValue)
 }

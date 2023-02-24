@@ -1,6 +1,6 @@
-import { useNuxtApp } from "#app"
 import { getFirestore } from "@firebase/firestore"
 import { enableEmulator } from "../utils/emulators"
+import { useFirebaseApp } from "./use-firebase-app.client"
 
 /**
  * Returns the Firestore instance
@@ -8,9 +8,9 @@ import { enableEmulator } from "../utils/emulators"
  * @returns {Firestore} Firestore instance
  */
 export const useFirestore = () => {
-  const firebaseApp = useNuxtApp().$firebaseApp
+  const app = useFirebaseApp()!
+  const firestore = getFirestore(app)
 
-  const firestore = getFirestore(firebaseApp)
   enableEmulator({ name: "firestore", module: firestore })
 
   return firestore

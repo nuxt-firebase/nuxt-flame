@@ -1,6 +1,6 @@
-import { useNuxtApp } from "#app"
 import { getFunctions } from "@firebase/functions"
 import { enableEmulator } from "../utils/emulators"
+import { useFirebaseApp } from "./use-firebase-app.client"
 
 /**
  * Returns the Firebase Cloud Functions instance
@@ -8,9 +8,9 @@ import { enableEmulator } from "../utils/emulators"
  * @returns {Functions} Firebase Cloud Functions instance
  */
 export const useFunctions = () => {
-  const firebaseApp = useNuxtApp().$firebaseApp
+  const app = useFirebaseApp()!
+  const functions = getFunctions(app)
 
-  const functions = getFunctions(firebaseApp)
   enableEmulator({ name: "functions", module: functions })
 
   return functions

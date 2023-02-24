@@ -1,15 +1,12 @@
-import { defineNuxtPlugin, useRuntimeConfig, useCookie } from "#app"
-import { NuxtFlameOptionsFull } from "../module"
+import { defineNuxtPlugin, useCookie } from "#app"
 import { enableAdminEmulators } from "./utils/emulators"
-import { useServerAuth } from "./composables/use-server-auth.server"
-import { useCurrentUser } from "#imports"
+import { useServerAuth, useCurrentUser, useFlameConfig } from "#imports"
 
 /**
  * Plugin to initialize Firebase Admin App and Auth on server side
  */
 export default defineNuxtPlugin(async () => {
-  const flameConfig = useRuntimeConfig().public.flame as NuxtFlameOptionsFull
-  const token = useCookie(flameConfig.authCookieName)
+  const token = useCookie(useFlameConfig().authCookieName)
 
   if (!token.value) return
 

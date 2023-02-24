@@ -28,7 +28,7 @@ export default defineNuxtConfig({
     authCookieName: "hihihihih",
 
     emulators: {
-      enabled: true,
+      enabled: false,
     },
   },
 })

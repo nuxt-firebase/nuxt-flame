@@ -3,18 +3,7 @@ import { connectFirestoreEmulator, Firestore } from "@firebase/firestore"
 import { connectDatabaseEmulator, Database } from "@firebase/database"
 import { connectFunctionsEmulator, Functions } from "@firebase/functions"
 import { connectStorageEmulator, FirebaseStorage } from "@firebase/storage"
-import { useRuntimeConfig } from "#app"
-import { NuxtFlameOptions, NuxtFlameOptionsFull } from "../../module"
-
-type EmulatorsConfig = {
-  enabled: boolean,
-
-  auth: AuthEmulatorConfig,
-  firestore: CommonEmulatorConfig,
-  database: CommonEmulatorConfig,
-  functions: CommonEmulatorConfig,
-  storage: CommonEmulatorConfig,
-}
+import { useFlameConfig } from "../composables/use-flame-config"
 
 type Emulator = {
   name: "firestore",
@@ -51,8 +40,7 @@ export type CommonEmulatorConfig = {
  * @param module
  */
 export const enableEmulator = ({ name, module }: Emulator) => {
-  const flameConfig = useRuntimeConfig().public.flame as NuxtFlameOptionsFull
-  const emulatorsConfig = flameConfig.emulators
+  const emulatorsConfig = useFlameConfig().emulators
   const emulatorConfig = emulatorsConfig[name]
 
   if (!emulatorsConfig.enabled && !emulatorConfig?.enabled) {
@@ -83,9 +71,8 @@ export const enableEmulator = ({ name, module }: Emulator) => {
  * @param auth
  */
 export const enableAuthEmulator = (auth: Auth) => {
-  const flameConfig = useRuntimeConfig().public.flame as NuxtFlameOptions
-  const emulatorsConfig = flameConfig.emulators as EmulatorsConfig
-  const emulatorConfig = emulatorsConfig.auth as AuthEmulatorConfig
+  const emulatorsConfig = useFlameConfig().emulators
+  const emulatorConfig = emulatorsConfig.auth
 
   if (!emulatorsConfig.enabled && !emulatorConfig?.enabled) {
     return
@@ -100,8 +87,7 @@ export const enableAuthEmulator = (auth: Auth) => {
 export const enableAdminEmulators = () => {
   if (process.client) return
 
-  const flameConfig = useRuntimeConfig().public.flame as NuxtFlameOptions
-  const emulatorsConfig = flameConfig.emulators as EmulatorsConfig
+  const emulatorsConfig = useFlameConfig().emulators
 
   if (emulatorsConfig.enabled || emulatorsConfig.firestore.enabled) {
     process.env.FIRESTORE_EMULATOR_HOST = `${emulatorsConfig.firestore.host}:${emulatorsConfig.firestore.port}`
