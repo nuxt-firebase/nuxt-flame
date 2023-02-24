@@ -1,19 +1,21 @@
 import { initializeApp, getApps, cert, App } from "firebase-admin/app"
 import { useRuntimeConfig } from "#imports"
 
+let firebaseAdminApp: App | null = null
+
 /**
  * Returns the Firebase Admin App instance (server only)
  *
  * @returns {App} Firebase Admin App instance
- * @throws {Error} Missing firebase admin credentials in runtime config
  */
-export const useFirebaseAdminApp = (): App | null => {
-  if (!process.server) return null
+export const useFirebaseAdminApp = (): App => {
+  if (firebaseAdminApp) return firebaseAdminApp
 
   const apps = getApps()
 
   if (apps.length) {
-    return apps[0]
+    firebaseAdminApp = apps[0]
+    return firebaseAdminApp
   }
 
   const { firebaseAdminCredentials } = useRuntimeConfig()
@@ -22,5 +24,9 @@ export const useFirebaseAdminApp = (): App | null => {
     throw new Error("Missing firebase admin credentials in runtime config")
   }
 
-  return initializeApp({ credential: cert(firebaseAdminCredentials) })
+  firebaseAdminApp = initializeApp({
+    credential: cert(firebaseAdminCredentials),
+  })
+
+  return firebaseAdminApp
 }
