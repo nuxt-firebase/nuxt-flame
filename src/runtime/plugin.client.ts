@@ -1,3 +1,4 @@
+import "firebase/auth"
 import { defineNuxtPlugin } from "#app"
 import { enableAuthEmulator } from "./utils/emulators"
 import { saveSession } from "./utils/session"
