@@ -2,11 +2,29 @@
   "name": "nuxt-flame",
   "version": "1.0.0-beta.6",
   "description": "🚀 Nuxt Flame provides a Google Firebase integration",
-  "license": "MIT",
+  "keywords": [
+    "nuxt",
+    "firebase",
+    "firestore",
+    "auth",
+    "storage",
+    "functions",
+    "database",
+    "firebase-admin"
+  ],
   "author": {
     "name": "Andrew Kodkod",
     "email": "andrew@kodkod.me"
   },
+  "homepage": "https://github.com/akodkod/nuxt-flame",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akodkod/nuxt-flame.git"
+  },
+  "bugs": {
+    "url": "https://github.com/akodkod/nuxt-flame/issues"
+  },
+  "license": "MIT",
   "type": "module",
   "exports": {
     ".": {

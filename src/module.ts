@@ -180,12 +180,41 @@ export default defineNuxtModule<NuxtFlameOptions>({
         name: "useFirestore",
       },
       {
+        from: resolver.resolve("./runtime/composables/use-collection"),
+        name: "useCollection",
+      },
+      {
+        from: resolver.resolve("./runtime/composables/use-async-collection"),
+        name: "useAsyncCollection",
+      },
+      {
+        from: resolver.resolve("./runtime/composables/use-document"),
+        name: "useDocument",
+      },
+      {
+        from: resolver.resolve("./runtime/composables/use-async-document"),
+        name: "useAsyncDocument",
+      },
+      {
+        from: resolver.resolve("./runtime/composables/use-document-subscribe"),
+        name: "useDocumentSubscribe",
+      },
+
+      {
+        from: resolver.resolve("./runtime/composables/use-collection-subscribe"),
+        name: "useCollectionSubscribe",
+      },
+      {
         from: resolver.resolve("./runtime/composables/use-database"),
         name: "useDatabase",
       },
       {
         from: resolver.resolve("./runtime/composables/use-functions"),
         name: "useFunctions",
+      },
+      {
+        from: resolver.resolve("./runtime/composables/use-function"),
+        name: "useFunction",
       },
       {
         from: resolver.resolve("./runtime/composables/use-storage"),

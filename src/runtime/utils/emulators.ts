@@ -49,6 +49,9 @@ export const enableEmulator = ({ name, module }: Emulator) => {
 
   switch (name) {
   case "firestore":
+    // @ts-ignore
+    if (module._settingsFrozen) return
+
     connectFirestoreEmulator(module, emulatorConfig.host, emulatorConfig.port)
     break
   case "database":
