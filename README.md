@@ -6,7 +6,18 @@
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
 [![License][license-src]][license-href]
 
-Easily integrate Google Firebase into your Nuxt 3 application.
+Easily integrate Google Firebase into your Nuxt 3 application
+
+## 🦾 Features
+
+- ⛰ &nbsp;Firebase Auth, Firestore, Realtime Database, Cloud Functions and Cloud Storage
+- 🏎️ &nbsp;Full emulators support
+- 🔋 &nbsp;SSR Friendly
+- 🔐 &nbsp;Safe
+- 🪶 &nbsp;Extremely light
+- 📦 &nbsp;TypeScript support
+
+---
 
 - [🏗️ &nbsp;Installation](#installation)
 - [⚙️ &nbsp;Usage](#usage)
@@ -22,16 +33,7 @@ Easily integrate Google Firebase into your Nuxt 3 application.
   - [Enable Emulators](#enable-emulators)
 - [🛣️ &nbsp;Roadmap](#roadmap)
 
-## Features
-
-- ⛰ &nbsp;Firebase Auth, Realtime Database, Firestore, Cloud Functions and Cloud Storage
-- 🏎️ &nbsp;Full emulators support
-- 🔋 &nbsp;SSR Friendly
-- 🔐 &nbsp;Safe
-- 🪶 &nbsp;Extremely light
-- 📦 &nbsp;TypeScript support
-
-## Installation
+## 🏗️ Installation
 
 1. Add `nuxt-flame` dependency to your project
 ```bash
@@ -98,7 +100,7 @@ FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----
 -----END PRIVATE KEY-----"
 ```
 
-4. _(Optional)_ Feel free to configure Nuxt Flame in `nuxt.config.ts`
+4. **(Optional)** Feel free to configure Nuxt Flame in `nuxt.config.ts`
 ```ts
 export default defineNuxtConfig({
   // ...
@@ -175,7 +177,7 @@ const auth = useAuth()
 const auth = useServerAuth()
 
 // Get current user
-// ⚠️ Client returns `User` object when server returns `DecodedIdToken` object
+// ❗️ Client returns `User` object when server returns `DecodedIdToken` object
 const currentUser = useCurrentUser()
 ```
 
@@ -305,7 +307,7 @@ export default defineNuxtConfig({
 })
 ```
 
-## Roadmap
+## 🛣️ Roadmap
 
 - [ ] Tests
 - [ ] TypeScript examples
@@ -315,7 +317,7 @@ export default defineNuxtConfig({
 - [ ] Helpers for Storage
 - [ ] Helpers for Realtime Database
 
-## Development
+## 👩‍💻 Development
 
 ```bash
 # Install dependencies
