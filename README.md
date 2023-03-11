@@ -1,3 +1,5 @@
+![Nuxt Flame logo](https://raw.githubusercontent.com/nuxt-firebase/nuxt-flame/main/playground/assets/nuxt-flame.png)
+
 # 🔥 Nuxt Flame
 
 [![npm version][npm-version-src]][npm-version-href]
