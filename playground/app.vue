@@ -3,11 +3,11 @@
     <div>
       <p>{{ currentUser?.name || currentUser?.displayName }}</p>
 
-      <button @click.prevent="signIn">
+      <button @click.prevent="login">
         Sign In
       </button>
 
-      <button @click.prevent="signOut">
+      <button @click.prevent="logout">
         Sign Out
       </button>
     </div>
@@ -15,22 +15,22 @@
 </template>
 
 <script setup lang="ts">
-import { GoogleAuthProvider, signInWithPopup, signOut as signOutFirebase } from "@firebase/auth"
+import { GoogleAuthProvider, signInWithPopup, signOut } from "@firebase/auth"
 import { useAuth, useCurrentUser } from "#imports"
 
 const auth = useAuth()
 const currentUser = useCurrentUser()
 
-const signIn = async () => {
+const login = async () => {
   if (!auth) return
 
   await signInWithPopup(auth, new GoogleAuthProvider())
 }
 
-const signOut = async () => {
+const logout = async () => {
   if (!auth) return
 
-  await signOutFirebase(auth)
+  await signOut(auth)
 }
 </script>
 

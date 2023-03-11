@@ -6,10 +6,19 @@
 
 Easily integrate Google Firebase into your Nuxt 3 application.
 
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
 - [🏗️ &nbsp;Installation](#installation)
 - [⚙️ &nbsp;Usage](#usage)
-- [🦾 &nbsp;Advanced Usage](#advanced-usage)
+  - [Apps](#firebase-apps)
+  - [Auth](#firebase-auth)
+  - [Firestore](#firestore)
+    - [Documents](#documents)
+    - [Collections](#collections)
+    - [Collection Queries](#collection-queries)
+  - [Cloud Functions](#cloud-functions)
+  - [Realtime Database](#realtime-database)
+  - [Cloud Storage](#cloud-storage)
+  - [Enable Emulators](#enable-emulators)
+- [🛣️ &nbsp;Roadmap](#roadmap)
 
 ## Features
 
@@ -18,6 +27,7 @@ Easily integrate Google Firebase into your Nuxt 3 application.
 - 🔋 &nbsp;SSR Friendly
 - 🔐 &nbsp;Safe
 - 🪶 &nbsp;Extremely light
+- 📦 &nbsp;TypeScript support
 
 ## Installation
 
@@ -34,7 +44,7 @@ npm install --save-dev nuxt-flame firebase firebase-admin
 ```
 
 2. Add `nuxt-flame` to the `modules` section of `nuxt.config.ts` and specify Firebase credentials in `runtimeConfig`
-```js
+```ts
 export default defineNuxtConfig({
   modules: [
     "nuxt-flame"
@@ -63,7 +73,7 @@ export default defineNuxtConfig({
 ```
 
 3. Create `.env` file and put your credentials there
-```js
+```ts
 // Web credentials from code snippet provided by Google Firebase
 FIREBASE_API_KEY=********
 FIREBASE_AUTH_DOMAIN=********
@@ -73,7 +83,7 @@ FIREBASE_MESSAGING_SENDER_ID=********
 FIREBASE_APP_ID=********
 FIREBASE_MEASUREMENT_ID=********
 
-// Admin credentials from service account key
+// Admin credentials from service account key (JSON)
 FIREBASE_CLIENT_EMAIL=********
 FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----
 ****************************************************
@@ -87,7 +97,7 @@ FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----
 ```
 
 4. _(Optional)_ Feel free to configure Nuxt Flame in `nuxt.config.ts`
-```js
+```ts
 export default defineNuxtConfig({
   // ...
 
@@ -146,62 +156,162 @@ That's it! You can now use Nuxt Flame in your Nuxt app ✨
 Nuxt Flame exports bunch of Firebase helpers (Vue composables) that available both client and server side.
 
 
-Get Firebase App **(client-side only)**:
-```js
-const app = useFirebaseApp()
+### Firebase Apps
+```ts
+const app = useFirebaseApp()        // client-side
+const admin = useFirebaseAdminApp() // server-side
 ```
 
-Get Firebase Admin App **(server-side only)**:
-```js
-const admin = useFirebaseAdminApp()
-```
+### Firebase Auth
 
-Get Firebase Auth instance **(client-side only)**:
-```js
+Basic usage:
+```ts
+// Firebase Auth instance (client only)
 const auth = useAuth()
-```
 
-Get Firebase Auth instance **(server-side only)**:
-```js
+// Firebase Auth instance with admin credentials (server only)
 const auth = useServerAuth()
-```
 
-Get current user. **Important:** Client returns `User` object when server returns `DecodedIdToken` object:
-```js
+// Get current user
+// ⚠️ Client returns `User` object when server returns `DecodedIdToken` object
 const currentUser = useCurrentUser()
 ```
 
-Get Firebase Realtime Database instance:
-```js
-const db = useDatabase()
+Authentication example using Google provider:
+```ts
+import { GoogleAuthProvider, signInWithPopup, signOut } from "@firebase/auth"
+import { useAuth, useCurrentUser } from "#imports"
+
+const auth = useAuth()
+const currentUser = useCurrentUser()
+
+const login = async () => {
+  if (!auth) return
+
+  await signInWithPopup(auth, new GoogleAuthProvider())
+}
+
+const logout = async () => {
+  if (!auth) return
+
+  await signOut(auth)
+}
 ```
 
+### Firestore
+
 Get Firebase Firestore instance:
-```js
+```ts
 const db = useFirestore()
 ```
 
-Get Firebaes Cloud Functions instance:
-```js
+#### Documents
+```ts
+// Get single document (SSR friendly)
+const post = await useAsyncDocument("posts", "1")
+
+// Get single document (async)
+const { data, loading, error, refresh } = useDocument("posts", "1")
+
+// Subscribe to document changes
+const { data, loading, error, unsubscribe } = useDocumentSubscribe("posts", "1")
+
+// Don't forget to unsubsribe
+onUnmounted(() => unsubscribe())
+```
+
+#### Collections
+```ts
+// Get collection documents (SSR friendly)
+const posts = await useAsyncCollection("posts")
+
+// Get collection documents (async)
+const { data, loading, error, refresh } = useCollection("posts")
+
+// Subscribe to collection changes
+const { data, loading, error, unsubscribe } = useCollectionSubscribe("posts")
+
+// Don't forget to unsubsribe
+onUnmounted(() => unsubscribe())
+```
+
+#### Collection Queries
+```ts
+import { where, orderBy } from "firebase/firestore"
+
+// Get collection documents with query (SSR friendly)
+const posts = await useAsyncCollection("posts", {
+  conditions: [
+    where("author", "==", "Andrew Kodkod"),
+    orderBy("createdAt", "desc"),
+  ],
+})
+
+// Get collection documents with query (async)
+const { data, loading, error, refresh } = useCollection("posts", {
+  conditions: [
+    where("author", "==", "Andrew Kodkod"),
+    orderBy("createdAt", "desc"),
+  ],
+})
+```
+
+### Cloud Functions
+
+Get Firebase Cloud Functions instance:
+```ts
 const functions = useFunctions()
 ```
 
-Get Firebaes Cloud Storage instance:
-```js
+Call https callable Cloud Function:
+```ts
+const archivePost = useFunction("archivePost")
+
+const onArchive = async () => {
+  const result = await archivePost.performAsync({ postId: "1", reason: "Spam" })
+}
+```
+
+### Realtime Database
+
+Get Firebase Realtime Database instance:
+```ts
+const db = useDatabase()
+```
+
+### Cloud Storage
+
+Get Firebase Cloud Storage instance:
+```ts
 const storage = useStorage()
 ```
 
-## Advanced Usage
+### Enable Emulators
+```ts
+// nuxt.config.ts
 
-TBD
+export default defineNuxtConfig({
+  // ...
+
+  flame: {
+    emulators: {
+      enabled: process.env.NODE_ENV !== "production",
+    }
+  }
+
+  // ...
+})
+```
 
 ## Roadmap
 
-- [ ] Write tests
-- [ ] Create helpers for Firestore
-- [ ] Create helpers for Functions
-- [ ] Create helpers for Storage
-- [ ] Create helpers for Realtime Database
+- [ ] Tests
+- [ ] TypeScript examples
+- [ ] Advanced usage examples
+- [x] Helpers for Firestore
+- [x] Helpers for Functions
+- [ ] Helpers for Storage
+- [ ] Helpers for Realtime Database
 
 ## Development
 
