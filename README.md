@@ -11,11 +11,11 @@ Easily integrate Google Firebase into your Nuxt 3 application
 ## 🦾 Features
 
 - ⛰ &nbsp;Firebase Auth, Firestore, Realtime Database, Cloud Functions and Cloud Storage
-- 🏎️ &nbsp;Full emulators support
+- 🧪 &nbsp;Emulators support
+- <img src="https://raw.githubusercontent.com/nuxt-firebase/nuxt-flame/main/playground/assets/typescript.svg" height="16" alt="TypeScript Logo" /> &nbsp;TypeScript support
 - 🔋 &nbsp;SSR Friendly
 - 🔐 &nbsp;Safe
-- 🪶 &nbsp;Extremely light
-- 📦 &nbsp;TypeScript support
+- 🪶 &nbsp;Light
 
 ---
 
