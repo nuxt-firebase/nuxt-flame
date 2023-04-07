@@ -37,8 +37,10 @@ export function useCollection<TData = DocumentData>(
         loading.value = false
       })
       .catch((err) => {
-        // eslint-disable-next-line no-console
-        console.error(`[Nuxt Flame] Error while loading collection: ${collectionName}\n\n`, err)
+        /* eslint-disable no-console */
+        console.error(`[Nuxt Flame] Error while loading collection: ${collectionName}`)
+        console.error(err)
+        /* eslint-enable no-console */
 
         error.value = err
         loading.value = false

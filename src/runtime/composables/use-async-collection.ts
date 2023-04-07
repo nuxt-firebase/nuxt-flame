@@ -26,5 +26,10 @@ export async function useAsyncCollection<TData = DocumentData>(
   )
 
   const querySnapshot = await getDocs(q)
-  return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })) as TData[]
+
+  return querySnapshot.docs.map((docSnapshot) => ({
+    id: docSnapshot.id,
+    snapshot: docSnapshot,
+    ...docSnapshot.data(),
+  })) as TData[]
 }

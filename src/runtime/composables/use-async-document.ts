@@ -19,7 +19,11 @@ export async function useAsyncDocument<TData = DocumentData>(
   const docSnapshot = await getDoc(docRef)
 
   if (docSnapshot.exists()) {
-    return { id: docSnapshot.id, ...docSnapshot.data() } as TData
+    return {
+      id: docSnapshot.id,
+      snapshot: docSnapshot,
+      ...docSnapshot.data(),
+    } as TData
   } else {
     return null
   }
